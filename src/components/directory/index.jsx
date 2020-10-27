@@ -50,8 +50,8 @@ class Directory extends Component {
           ))
         }
       </div>
-    );
+    )
   }
 }
  
-export default Directory;
+export default Directory
