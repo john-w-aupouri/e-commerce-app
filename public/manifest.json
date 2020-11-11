@@ -1,6 +1,6 @@
 {
-  "short_name": "Fullstack React",
-  "name": "Fullstack React E-Commerce App",
+  "short_name": "React E-commerce",
+  "name": "React-Dev E-Commerce App",
   "icons": [
     {
       "src": "favicon.ico",
