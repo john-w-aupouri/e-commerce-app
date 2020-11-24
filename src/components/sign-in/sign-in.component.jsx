@@ -23,8 +23,10 @@ class SignIn extends React.Component {
   handleSubmit = async event => {
     event.preventDefault();
 
+    // Destructure state.
     const { email, password } = this.state;
 
+    // Use firebase method for sign-in then reset input values.
     try {
       await auth.signInWithEmailAndPassword(email, password);
       this.setState({ email: '', password: '' });
@@ -34,6 +36,7 @@ class SignIn extends React.Component {
   };
 
   handleChange = event => {
+    // Set each input prop to the corresponding typed value.
     const { value, name } = event.target;
 
     this.setState({ [name]: value });

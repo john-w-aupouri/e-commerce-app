@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+// This component makes sure spinner is always centered.
 export const SpinnerOverlay = styled.div`
   height: 60vh;
   width: 100%;

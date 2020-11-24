@@ -16,7 +16,7 @@ export const fetchCollectionsFailure = errorMessage => ({
   payload: errorMessage
 });
 
-// Thunks will give dispatch functionality as a parameter.
+// Our thunk will give catch this action thereby giving dispatch functionality as a parameter we can then leverage.
 export const fetchCollectionsStartAsync = () => {
   return dispatch => {
     const collectionRef = firestore.collection('collections');

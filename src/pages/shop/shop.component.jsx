@@ -34,7 +34,7 @@ class ShopPage extends React.Component {
         <Route 
           exact 
           path={`${match.path}`} 
-          // If the selector "isCollectingFetching" is false then render spinner.
+          // If the selector "isCollectingFetching" is false then render HOC spinner.
           render={props => 
             <CollectionsOverviewWithSpinner 
               isLoading={isFetchingCollections} 
@@ -46,7 +46,7 @@ class ShopPage extends React.Component {
           path={`${match.path}/:collectionId`} 
           /* 
             Default value for "isFetching" is false, 
-            so set the "isCollectionsLoaded" selector to it's opposite to not render our HOC spinner. 
+            so set the "isCollectionsLoaded" selector to it's opposite to not render HOC spinner. 
             Since the "isLoading" state within the reducer will be false 
             and we need it to be true to render our collections.
           */

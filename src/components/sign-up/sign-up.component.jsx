@@ -25,21 +25,29 @@ class SignUp extends React.Component {
   handleSubmit = async event => {
     event.preventDefault();
 
+    // Destructure state.
     const { displayName, email, password, confirmPassword } = this.state;
 
+    // "password" and "confirmPassword" need to be the same value.
     if (password !== confirmPassword) {
       alert("passwords don't match");
       return;
     }
 
+    // Create a user object and store "email" and "password" on the backend.
     try {
       const { user } = await auth.createUserWithEmailAndPassword(
         email,
         password
       );
 
+      /*
+        Call firebase utility function with previously created user object as the first argument to firebase.
+        The second will be an object with "displayName" checking for errors in "../../firebase/firebase.utils".
+      */
       await createUserProfileDocument(user, { displayName });
 
+      // Reset inputs
       this.setState({
         displayName: '',
         email: '',

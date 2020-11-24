@@ -16,10 +16,18 @@ const config = {
 firebase.initializeApp(config);
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
+
   if (!userAuth) return;
-
+  /* 
+    Use user auth object to querry our db for a document reference object that was assigned 
+    by our authentication library which is kept on the firebase console. 
+  */
   const userRef = firestore.doc(`users/${userAuth.uid}`);
-
+  /*
+    A "snapShot" is a reference object given by firebase.
+    Even absent a user object in the db. Firebase will always return a "snapShot" object
+    to use for checking if a user exists with "!snapShot.exists".
+   */
   const snapShot = await userRef.get();
 
   if (!snapShot.exists) {
@@ -40,24 +48,26 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
-// Function to programmatically add data to firebase db
-export const addCollectionAndDocuments = async (
-  collectionKey, 
-  objectsToAdd
-) => {
-  const collectionRef = firestore.collection(collectionKey);
-  console.log(collectionRef);
+// This function is to programmatically add data to firebase db.
+/*
+  export const addCollectionAndDocuments = async (
+    collectionKey, 
+    objectsToAdd
+  ) => {
+    const collectionRef = firestore.collection(collectionKey);
+    console.log(collectionRef);
 
-  const batch = firestore.batch();
-  objectsToAdd.forEach(obj => {
-    const newDocRef = collectionRef.doc();
-    batch.set(newDocRef, obj);
-  });
+    const batch = firestore.batch();
+    objectsToAdd.forEach(obj => {
+      const newDocRef = collectionRef.doc();
+      batch.set(newDocRef, obj);
+    });
 
-  return await batch.commit();
-};
+    return await batch.commit();
+  };
+*/
 
-// Pull data from firebase db
+// Pull and convert data from firebase db
 export const convertCollectionSnapshotToMap = (collections) => {
   const transformedCollection = collections.docs.map(doc => {
     const { title, items } = doc.data();
