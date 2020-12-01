@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 // Components
 import CollectionItemContainer from '../../components/collection-item/collection-item.container';
@@ -15,7 +15,9 @@ import {
 } from './collection.styles';
 
 const CollectionPage = ({ collection }) => {
+
   const { title, items } = collection;
+  
   return (
     <CollectionPageContainer>
       <CollectionTitle>{title}</CollectionTitle>
