@@ -3,11 +3,12 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 // Selectors
-import { selectIsCollectionFetching } from '../../redux/shop/shop.selectors';
+import { selectIsCollectionFetching, selectCollectionsForPreview  } from '../../redux/shop/shop.selectors';
 
 // HOC
 import WithSpinner from '../with-spinner/with-spinner.component';
 
+// Components
 import CollectionsOverview from './collections-overview.component';
 
 /* 
@@ -19,7 +20,8 @@ import CollectionsOverview from './collections-overview.component';
 */
 
 const mapStateToProps = createStructuredSelector({
-  isLoading: selectIsCollectionFetching
+  isLoading: selectIsCollectionFetching,
+  collections: selectCollectionsForPreview
 });
 
 // compose evalutes from right to left

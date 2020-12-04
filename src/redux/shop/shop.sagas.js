@@ -13,7 +13,7 @@ import {
 import ShopActionTypes from './shop.types';
 
 export function* fetchCollectionsAsync() {
-  yield console.log("I am a saga");
+  yield console.log("I am a saga in control of this fetching action");
   try {
     const collectionRef = firestore.collection('collections');
     const snapshot = yield collectionRef.get();
