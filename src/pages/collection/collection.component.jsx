@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 // Components
-import CollectionItemContainer from '../../components/collection-item/collection-item.container';
+import CollectionItem from '../../components/collection-item/collection-item.component';
 
 // Selectors 
 import { selectCollection } from '../../redux/shop/shop.selectors';
@@ -23,7 +23,7 @@ const CollectionPage = ({ collection }) => {
       <CollectionTitle>{title}</CollectionTitle>
       <CollectionItemsContainer>
         {items.map(item => (
-          <CollectionItemContainer key={item.id} item={item} />
+          <CollectionItem key={item.id} item={item} />
         ))}
       </CollectionItemsContainer>
     </CollectionPageContainer>

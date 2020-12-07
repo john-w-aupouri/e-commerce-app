@@ -1,14 +1,14 @@
 import React from 'react';
 
-// Components
-import Directory from '../../components/directory/directory.component';
+// HOC
+import DirectoryContainer from '../../components/directory/directory.container';
 
-// Styled-Components
+// Styles
 import { HomepageContainer } from './homepage.styles'
 
 const HomePage = () => (
   <HomepageContainer>
-    <Directory />
+    <DirectoryContainer />
   </HomepageContainer>
 );
 
