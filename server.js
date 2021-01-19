@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
-const compression = require('compression');
 const enforce = require('express-sslify');
 
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
@@ -12,13 +11,17 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const app = express();
 const port = process.env.PORT || 5000;
 
+// Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Heroku reverse proxy
+app.use(enforce.HTTPS({ trustProtoHeader: true }));
+
+// CORS
 app.use(cors());
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(compression);
-  app.use(enforce.HTTPS({ trustProtoHeader: true }));
   app.use(express.static(path.join(__dirname, 'client/build')));
 
   app.get('*', function (req, res) {
@@ -31,11 +34,12 @@ app.listen(port, (error) => {
   console.log('Server is running on port ' + port);
 });
 
-// Service Worker
+// Service worker
 app.get('/service-worker.js', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'build', 'service-worker.js'));
 });
 
+// Stripe payment
 app.post('/payment', (req, res) => {
   const body = {
     source: req.body.token.id,
