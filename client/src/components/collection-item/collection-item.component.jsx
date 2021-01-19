@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 // Actions
 import { addItem } from '../../redux/cart/cart.actions';
 
-// Styled-Components
+// Styles
 import {
   CollectionItemContainer,
   CollectionFooterContainer,
   AddButton,
   BackgroundImage,
   NameContainer,
-  PriceContainer
+  PriceContainer,
 } from './collection-styles.styles';
 
 const CollectionItem = ({ item, addItem }) => {
@@ -31,11 +31,8 @@ const CollectionItem = ({ item, addItem }) => {
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  addItem: item => dispatch(addItem(item))
+const mapDispatchToProps = (dispatch) => ({
+  addItem: (item) => dispatch(addItem(item)),
 });
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(CollectionItem);
+export default connect(null, mapDispatchToProps)(CollectionItem);
