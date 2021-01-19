@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import { store, persistor } from './redux/store';
-import * as serviceWorker from './service-worker';
+import * as serviceWorker from './serviceWorkerRegistration';
 import App from './App';
 import './index.css';
 
@@ -22,4 +22,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-serviceWorker.regisster();
+serviceWorker.register();
