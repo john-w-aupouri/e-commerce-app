@@ -3,20 +3,19 @@ import 'firebase/firestore';
 import 'firebase/auth';
 
 const config = {
-  apiKey: "AIzaSyALx8lTgkF7pcERAWyGHeqYvt8AS-uBfcw",
-  authDomain: "react-e-commerce-db-67efb.firebaseapp.com",
-  databaseURL: "https://react-e-commerce-db-67efb.firebaseio.com",
-  projectId: "react-e-commerce-db-67efb",
-  storageBucket: "react-e-commerce-db-67efb.appspot.com",
-  messagingSenderId: "57826735813",
-  appId: "1:57826735813:web:4452ffccabf01ee0f2e2ac",
-  measurementId: "G-KW3L7BNRGE"
+  apiKey: 'AIzaSyALx8lTgkF7pcERAWyGHeqYvt8AS-uBfcw',
+  authDomain: 'react-e-commerce-db-67efb.firebaseapp.com',
+  databaseURL: 'https://react-e-commerce-db-67efb.firebaseio.com',
+  projectId: 'react-e-commerce-db-67efb',
+  storageBucket: 'react-e-commerce-db-67efb.appspot.com',
+  messagingSenderId: '57826735813',
+  appId: '1:57826735813:web:4452ffccabf01ee0f2e2ac',
+  measurementId: 'G-KW3L7BNRGE',
 };
 
 firebase.initializeApp(config);
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
-
   if (!userAuth) return;
   /* 
     Use user auth object to querry our db for a document reference object that was assigned 
@@ -38,7 +37,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         displayName,
         email,
         createdAt,
-        ...additionalData
+        ...additionalData,
       });
     } catch (error) {
       console.log('error creating user', error.message);
@@ -46,6 +45,19 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   }
 
   return userRef;
+};
+
+export const getUserCartRef = async (userId) => {
+  const cartsRef = firestore.collection('carts').where('userId', '==', userId);
+  const snapShot = await cartsRef.get();
+
+  if (snapShot.empty) {
+    const cartDocRef = firestore.collection('carts').doc();
+    await cartDocRef.set({ userId, cartItems: [] });
+    return cartDocRef;
+  } else {
+    return snapShot.docs[0].ref;
+  }
 };
 
 // This function is to programmatically add data to firebase db.
@@ -69,31 +81,31 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
 // Pull and convert data from firebase db
 export const convertCollectionSnapshotToMap = (collections) => {
-  const transformedCollection = collections.docs.map(doc => {
+  const transformedCollection = collections.docs.map((doc) => {
     const { title, items } = doc.data();
 
     return {
       routeName: encodeURI(title.toLowerCase()),
       id: doc.id,
       title,
-      items
-    }
+      items,
+    };
   });
 
   return transformedCollection.reduce((accumulator, collection) => {
     accumulator[collection.title.toLowerCase()] = collection;
     return accumulator;
-  }, {})
+  }, {});
 };
 
 export const getCurrentUser = () => {
   return new Promise((resolve, reject) => {
-    const unsubscribe = auth.onAuthStateChanged(userAuth => {
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
       unsubscribe();
       resolve(userAuth);
-    }, reject)
-  })
-}
+    }, reject);
+  });
+};
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
