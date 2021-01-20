@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 // Selectors
-import { selectCartItems, selectCartTotal } from '../../redux/cart/cart.selectors';
+import {
+  selectCartItems,
+  selectCartTotal,
+} from '../../redux/cart/cart.selectors';
 
 // Components
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
@@ -15,14 +18,12 @@ import {
   CheckoutHeaderContainer,
   HeaderBlockContainer,
   TotalContainer,
-  WarningContainer
+  WarningContainer,
 } from './checkout.styles';
 
 const CheckoutPage = ({ cartItems, total }) => (
   <CheckoutPageContainer>
-
     <CheckoutHeaderContainer>
-
       <HeaderBlockContainer>
         <span>Product</span>
       </HeaderBlockContainer>
@@ -38,27 +39,25 @@ const CheckoutPage = ({ cartItems, total }) => (
       <HeaderBlockContainer>
         <span>Remove</span>
       </HeaderBlockContainer>
-
     </CheckoutHeaderContainer>
 
-    {cartItems.map(cartItem => (
+    {cartItems.map((cartItem) => (
       <CheckoutItem key={cartItem.id} cartItem={cartItem} />
     ))}
-    
+
     <TotalContainer>TOTAL: ${total}</TotalContainer>
     <WarningContainer>
       *Please use the following test credit card for payments*
       <br />
-      4242 4242 4242 4242 - Exp: 01/21 - CVV: 123
+      4242 4242 4242 4242 - Exp: 03/2021 - CVV: 123
     </WarningContainer>
     <StripeCheckoutButton price={total} />
-
   </CheckoutPageContainer>
 );
 
 const mapStateToProps = createStructuredSelector({
   cartItems: selectCartItems,
-  total: selectCartTotal
+  total: selectCartTotal,
 });
 
 export default connect(mapStateToProps)(CheckoutPage);
